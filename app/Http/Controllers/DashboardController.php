@@ -7,6 +7,7 @@ use App\Models\Incident;
 use App\Models\LearningLog;
 use App\Models\User;
 use App\Models\WeeklyReflection;
+use App\Services\DashboardCacheService;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Auth;
@@ -31,46 +32,11 @@ class DashboardController extends Controller
 
     private function adminDashboard(): View
     {
-        // Cache statistics for better performance
-        $stats = cache()->remember('admin_dashboard_stats', 300, function () {
-            return [
-                'total_students' => User::students()->count(),
-                'active_rotations' => ClinicalRotation::active()->count(),
-                'completed_rotations' => ClinicalRotation::completed()->count(),
-                'recent_incidents' => Incident::recent(7)->count(),
-                'pending_reflections' => WeeklyReflection::pendingReview()->count(),
-            ];
-        });
-
-        // Cache recent incidents for 5 minutes
-        $recentIncidents = cache()->remember('admin_recent_incidents', 300, function () {
-            return Incident::with(['user:id,name,email', 'clinicalRotation:id,rotation_title'])
-                ->select(['id', 'user_id', 'clinical_rotation_id', 'event_type', 'incident_date', 'status'])
-                ->recent(7)
-                ->latest('incident_date')
-                ->limit(5)
-                ->get();
-        });
-
-        // Cache recent learning logs for 5 minutes
-        $recentLearningLogs = cache()->remember('admin_recent_learning_logs', 300, function () {
-            return LearningLog::with(['user:id,name,email', 'clinicalRotation:id,rotation_title'])
-                ->select(['id', 'user_id', 'clinical_rotation_id', 'topic_keyword', 'logged_at'])
-                ->where('logged_at', '>=', now()->subDays(7))
-                ->latest('logged_at')
-                ->limit(5)
-                ->get();
-        });
-
-        // Cache recent weekly reflections for 5 minutes
-        $recentReflections = cache()->remember('admin_recent_reflections', 300, function () {
-            return WeeklyReflection::with(['user:id,name,email', 'clinicalRotation:id,rotation_title'])
-                ->select(['id', 'user_id', 'clinical_rotation_id', 'week_start_date', 'week_end_date', 'submitted'])
-                ->where('week_end_date', '>=', now()->subDays(14))
-                ->latest('week_end_date')
-                ->limit(5)
-                ->get();
-        });
+        // Use optimized cache service
+        $stats = DashboardCacheService::getAdminStats();
+        $recentIncidents = DashboardCacheService::getRecentIncidents();
+        $recentLearningLogs = DashboardCacheService::getRecentLearningLogs();
+        $recentReflections = DashboardCacheService::getRecentWeeklyReflections();
 
         return view('dashboard.admin', compact('stats', 'recentIncidents', 'recentLearningLogs', 'recentReflections'));
     }
@@ -189,17 +155,8 @@ class DashboardController extends Controller
         /** @var User $user */
         $user = Auth::user();
         
-        // Cache student statistics for 5 minutes
-        $stats = cache()->remember("student_dashboard_stats_{$user->id}", 300, function () use ($user) {
-            return [
-                'active_rotations' => $user->clinicalRotations()->where('status', 'active')->count(),
-                'completed_rotations' => $user->clinicalRotations()->where('status', 'completed')->count(),
-                'total_incidents' => $user->incidents()->count(),
-                'submitted_reflections' => $user->weeklyReflections()->where('submitted', true)->count(),
-                'learning_logs' => $user->learningLogs()->count(),
-                'pending_practice' => 0, // Removed requires_practice field
-            ];
-        });
+        // Use optimized cache service
+        $stats = DashboardCacheService::getStudentStats($user->id);
 
         // Cache current rotation for 10 minutes
         $currentRotation = cache()->remember("student_current_rotation_{$user->id}", 600, function () use ($user) {

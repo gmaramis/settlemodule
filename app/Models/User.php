@@ -65,25 +65,25 @@ class User extends Authenticatable
         ];
     }
 
-    // Relationships
+    // Relationships with optimizations
     public function clinicalRotations(): HasMany
     {
-        return $this->hasMany(ClinicalRotation::class);
+        return $this->hasMany(ClinicalRotation::class)->select(['id', 'user_id', 'rotation_title', 'status', 'start_date', 'end_date']);
     }
 
     public function incidents(): HasMany
     {
-        return $this->hasMany(Incident::class);
+        return $this->hasMany(Incident::class)->select(['id', 'user_id', 'event_type', 'incident_date', 'status']);
     }
 
     public function weeklyReflections(): HasMany
     {
-        return $this->hasMany(WeeklyReflection::class);
+        return $this->hasMany(WeeklyReflection::class)->select(['id', 'user_id', 'week_start_date', 'week_end_date', 'submitted']);
     }
 
     public function learningLogs(): HasMany
     {
-        return $this->hasMany(LearningLog::class);
+        return $this->hasMany(LearningLog::class)->select(['id', 'user_id', 'topic_keyword', 'logged_at']);
     }
 
     // Scopes
