@@ -1,233 +1,253 @@
-# 🏥 Settle Medical - Sistem Manajemen Rotasi Klinis
+# Settle Medical Module
 
-**Platform digital terintegrasi untuk pengelolaan rotasi klinis mahasiswa kedokteran Fakultas Kedokteran Sam Ratulangi University.**
+A comprehensive Laravel application for managing medical student clinical rotations, incidents, learning logs, and weekly reflections.
 
-## ✨ **Fitur Utama**
+## 🏥 Features
 
--   🎓 **Manajemen Rotasi Klinis**: Kelola jadwal rotasi dengan mudah
--   📊 **Tracking Progress**: Pantau kemajuan pembelajaran mahasiswa
--   📝 **Evaluasi Terpadu**: Sistem evaluasi komprehensif
--   👥 **Manajemen User**: Admin, mahasiswa, dan pengelolaan akun
--   📧 **Sistem Email**: Notifikasi dan password reset
--   📱 **Responsive Design**: Bekerja sempurna di semua device
+### Core Functionality
+- **Clinical Rotation Management** - Track student rotations and progress
+- **Incident Reporting** - Structured incident reporting system
+- **Learning Logs** - Document learning experiences and insights
+- **Weekly Reflections** - Student reflection and feedback system
+- **User Management** - Multi-role user system (Admin, Students, Department Admins)
+- **Activity Logging** - Comprehensive activity tracking
+- **WhatsApp Notifications** - Automated notifications via WhatsApp
 
-## 🚀 **Quick Start**
+### Dashboard Features
+- **Admin Dashboard** - Comprehensive overview with statistics
+- **Student Dashboard** - Personalized student interface
+- **Department Admin Dashboard** - Department-specific management
+- **Real-time Statistics** - Live data with caching for performance
+- **Recent Activity** - Recent incidents, learning logs, and reflections
 
-### **Prerequisites**
+### Technical Features
+- **Laravel 11** - Latest Laravel framework
+- **Tailwind CSS** - Modern, responsive design
+- **MySQL Database** - Robust data management
+- **Caching System** - Optimized performance
+- **Email Integration** - SMTP email notifications
+- **WhatsApp Integration** - Fonnte API integration
+- **Multi-language Support** - Indonesian language support
 
--   PHP 8.1+
--   Composer
--   MySQL/PostgreSQL
--   Node.js & NPM
+## 🚀 Installation
 
-### **Installation**
+### Prerequisites
+- PHP 8.2 or higher
+- Composer
+- Node.js & NPM
+- MySQL 8.0 or higher
 
-```bash
-# Clone repository
-git clone <repository-url>
-cd Settle
+### Setup Instructions
 
-# Install dependencies
-composer install
-npm install
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/gmaramis/settlemodule.git
+   cd settlemodule
+   ```
 
-# Setup environment
-cp .env.example .env
-php artisan key:generate
+2. **Install dependencies**
+   ```bash
+   composer install
+   npm install
+   ```
 
-# Configure database
-# Edit .env file with your database credentials
+3. **Environment setup**
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
 
-# Run migrations
-php artisan migrate
+4. **Database setup**
+   ```bash
+   php artisan migrate
+   php artisan db:seed
+   ```
 
-# Seed database
-php artisan db:seed
+5. **Build assets**
+   ```bash
+   npm run build
+   ```
 
-# Start development server
-php artisan serve
-```
+6. **Start the application**
+   ```bash
+   php artisan serve
+   ```
 
-### **Access URLs**
+## 📊 Database Structure
 
--   **Welcome**: http://127.0.0.1:8000
--   **Login**: http://127.0.0.1:8000/login
--   **Dashboard**: http://127.0.0.1:8000/dashboard
+### Key Tables
+- `users` - User management with roles
+- `clinical_rotations` - Rotation tracking
+- `incidents` - Incident reports
+- `weekly_reflections` - Student reflections
+- `learning_logs` - Learning documentation
+- `activity_logs` - System activity tracking
+- `broadcast_messages` - System notifications
 
-## 🎨 **Custom Branding**
+### User Roles
+- **Admin** - Full system access
+- **Student** - Personal dashboard and submissions
+- **Department Admin** - Department-specific management
 
-Aplikasi ini telah dikustomisasi dengan branding **Settle Medical**:
+## 🎨 Customization
 
--   ✅ Logo custom: `logo_settle.jpeg`
--   ✅ Desain modern dengan gradient
--   ✅ Bahasa Indonesia
--   ✅ Responsive design
--   ✅ Custom email templates
+### Logo & Branding
+- Replace logo files in `public/images/logos/`
+- Update favicon in `public/favicon.ico`
+- Modify app name in `.env` file
 
-## 📁 **Project Structure**
+### Developer Information
+- Update developer details in `config/developer.php`
+- Customize footer in `resources/views/components/footer.blade.php`
 
-```
-Settle/
-├── app/                    # Laravel application logic
-├── public/                 # Public assets
-│   ├── images/
-│   │   └── logos/
-│   │       └── logo_settle.jpeg
-│   └── favicon.ico
-├── resources/
-│   ├── views/              # Blade templates
-│   │   ├── auth/           # Authentication pages
-│   │   ├── welcome.blade.php
-│   │   └── ...
-│   └── css/                # Stylesheets
-├── docs/                   # Documentation
-│   ├── guides/             # Setup guides
-│   └── tests/              # Test scripts
-└── database/               # Migrations & seeders
-```
+### Email Configuration
+- Configure SMTP settings in `.env`
+- Customize email templates in `resources/views/emails/`
 
-## 🔧 **Configuration**
+## 📱 WhatsApp Integration
 
-### **Email Setup**
+### Setup
+1. Get Fonnte API token
+2. Configure in `.env`:
+   ```
+   FONNTE_API_TOKEN=your_token_here
+   FONNTE_PHONE_NUMBER=your_phone_number
+   ```
 
-Email menggunakan Gmail SMTP:
+### Features
+- Incident notifications
+- Learning log reminders
+- Weekly reflection alerts
+- System announcements
 
-```
-MAIL_MAILER=smtp
-MAIL_HOST=smtp.gmail.com
-MAIL_PORT=587
-MAIL_USERNAME=medicalsettle@gmail.com
-MAIL_PASSWORD=your-app-password
-MAIL_ENCRYPTION=tls
-```
+## 🔧 Configuration
 
-### **App Configuration**
-
-```
-APP_NAME="Settle Medical"
-APP_URL=http://127.0.0.1:8000
-APP_LOCALE=id
-```
-
-## 📚 **Documentation**
-
-Lihat folder `docs/guides/` untuk panduan lengkap:
-
--   `COMPLETE_CUSTOMIZATION_GUIDE.md` - Panduan lengkap customisasi
--   `CUSTOM_LOGO_GUIDE.md` - Panduan logo dan branding
--   `SETUP_EMAIL_SMTP.md` - Setup email SMTP
--   Dan lainnya...
-
-## 🧪 **Testing**
-
-Script test tersedia di `docs/tests/`:
-
-```bash
-# Test custom logo
-php docs/tests/test-custom-logo.php
-
-# Test auth pages
-php docs/tests/test-final-auth.php
-
-# Test password reset
-php docs/tests/test-custom-reset-password.php
-```
-
-## 👥 **User Roles**
-
--   **Admin**: Full access ke semua fitur
--   **Student**: Mahasiswa dengan akses ke rotasi klinis
-
-## 🎯 **Screenshots**
-
-### **Welcome Page**
-
--   Modern landing page dengan logo custom
--   Gradient background dan responsive design
--   Feature showcase dan call-to-action
-
-### **Authentication Pages**
-
--   Login/Register dengan desain modern
--   Custom logo di semua halaman
--   Bahasa Indonesia untuk user experience
-
-### **Dashboard**
-
--   Overview rotasi klinis
--   Progress tracking
--   Quick actions
-
-## 🔒 **Security**
-
--   CSRF protection
--   Input validation
--   Password hashing
--   Rate limiting
--   Secure email transmission
-
-## 📱 **Responsive Design**
-
--   Mobile-first approach
--   Tailwind CSS framework
--   Breakpoints: sm (640px), md (768px), lg (1024px), xl (1280px)
--   Touch-friendly interface
-
-## 🚀 **Deployment**
-
-### **Production Checklist**
-
--   [ ] Update `.env` dengan production settings
--   [ ] Set `APP_ENV=production`
--   [ ] Configure production database
--   [ ] Setup email SMTP
--   [ ] Run `php artisan config:cache`
--   [ ] Run `php artisan route:cache`
--   [ ] Run `php artisan view:cache`
-
-### **Environment Variables**
-
+### Environment Variables
 ```env
+APP_NAME="Settle Medical"
 APP_ENV=production
 APP_DEBUG=false
 APP_URL=https://your-domain.com
 
 DB_CONNECTION=mysql
-DB_HOST=your-db-host
+DB_HOST=127.0.0.1
 DB_PORT=3306
-DB_DATABASE=your-db-name
-DB_USERNAME=your-db-user
-DB_PASSWORD=your-db-password
+DB_DATABASE=settle_medical
+DB_USERNAME=your_username
+DB_PASSWORD=your_password
 
 MAIL_MAILER=smtp
-MAIL_HOST=smtp.gmail.com
+MAIL_HOST=your_smtp_host
 MAIL_PORT=587
-MAIL_USERNAME=medicalsettle@gmail.com
-MAIL_PASSWORD=your-app-password
+MAIL_USERNAME=your_email
+MAIL_PASSWORD=your_password
 MAIL_ENCRYPTION=tls
+
+FONNTE_API_TOKEN=your_fonnte_token
+FONNTE_PHONE_NUMBER=your_phone_number
 ```
 
-## 🤝 **Contributing**
+## 📚 Documentation
 
-1. Fork repository
+### Guides Available
+- `docs/guides/COMPLETE_CUSTOMIZATION_GUIDE.md` - Full customization guide
+- `docs/guides/EMAIL_CONFIG.md` - Email configuration
+- `docs/guides/WHATSAPP_NOTIFICATION_SETUP.md` - WhatsApp setup
+- `docs/guides/INCIDENT_REPORTING_GUIDE.md` - Incident reporting system
+
+### API Documentation
+- RESTful API endpoints for all modules
+- Authentication via Laravel Sanctum
+- Rate limiting and security measures
+
+## 🧪 Testing
+
+### Run Tests
+```bash
+php artisan test
+```
+
+### Test Coverage
+- Authentication tests
+- Feature tests
+- Unit tests
+- Integration tests
+
+## 🚀 Deployment
+
+### Production Setup
+1. Configure production environment
+2. Set up SSL certificate
+3. Configure database
+4. Set up email service
+5. Configure WhatsApp service
+6. Run migrations and seeders
+
+### Performance Optimization
+- Enable caching
+- Optimize database queries
+- Use CDN for assets
+- Configure queue workers
+
+## 📈 Monitoring
+
+### Activity Logging
+- User actions tracking
+- System events logging
+- Performance monitoring
+- Error tracking
+
+### Analytics
+- User engagement metrics
+- System usage statistics
+- Performance indicators
+
+## 🤝 Contributing
+
+### Development
+1. Fork the repository
 2. Create feature branch
-3. Commit changes
-4. Push to branch
-5. Create Pull Request
+3. Make changes
+4. Test thoroughly
+5. Submit pull request
 
-## 📄 **License**
+### Code Standards
+- Follow PSR-12 coding standards
+- Write comprehensive tests
+- Document new features
+- Maintain backward compatibility
 
-This project is proprietary software developed for Sam Ratulangi University.
+## 📄 License
 
-## 📞 **Support**
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-Untuk bantuan dan dukungan:
+## 👨‍💻 Developer
 
--   Email: medicalsettle@gmail.com
--   Institusi: Fakultas Kedokteran Sam Ratulangi University
+**Glenn Maramis**
+- Email: glendpm@gmail.com
+- WhatsApp: +62 852-4054-3123
+- Services: Web Development, Mobile App Development, System Integration
+
+## 🆘 Support
+
+For support and inquiries:
+- Email: glendpm@gmail.com
+- WhatsApp: +62 852-4054-3123
+- GitHub Issues: [Create an issue](https://github.com/gmaramis/settlemodule/issues)
+
+## 🔄 Changelog
+
+### Version 1.0.0
+- Initial release
+- Core functionality implemented
+- Admin dashboard with statistics
+- Student management system
+- Incident reporting system
+- Learning logs and reflections
+- WhatsApp notifications
+- Email integration
+- Multi-language support
 
 ---
 
-**© 2024 Settle Medical. Sistem Manajemen Rotasi Klinis untuk Fakultas Kedokteran Sam Ratulangi University.**
-
-
+**Settle Medical Module** - Streamlining medical education management 🏥✨
