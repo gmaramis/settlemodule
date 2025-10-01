@@ -6,6 +6,7 @@ use App\Models\LearningLog;
 use App\Models\ClinicalRotation;
 use App\Models\User;
 use App\Models\Admin;
+use App\Models\Incident;
 use App\Notifications\LearningLogNotification;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -64,9 +65,8 @@ class LearningLogController extends Controller
     public function create(): View
     {
         $user = Auth::user();
-        $rotations = ClinicalRotation::where('user_id', $user->id)
-            ->whereIn('status', ['active', 'completed'])
-            ->get();
+        // Get clinical rotations from database - use existing rotations
+        $rotations = ClinicalRotation::all();
 
         return view('learning-logs.create', compact('rotations'));
     }
@@ -115,9 +115,8 @@ class LearningLogController extends Controller
         $this->authorize('update', $learningLog);
         
         $user = Auth::user();
-        $rotations = ClinicalRotation::where('user_id', $user->id)
-            ->whereIn('status', ['active', 'completed'])
-            ->get();
+        // Get clinical rotations from database - use existing rotations
+        $rotations = ClinicalRotation::all();
         
         return view('learning-logs.edit', compact('learningLog', 'rotations'));
     }

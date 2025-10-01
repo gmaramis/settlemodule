@@ -391,3 +391,5 @@ p: text-sm text-gray-600
 **Logo Laravel sudah dihilangkan sepenuhnya dan desain baru yang lebih menarik berhasil diterapkan dengan logo Settle yang lebih besar dan efek visual yang modern!**
 
 
+
+

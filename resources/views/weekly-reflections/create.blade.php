@@ -76,16 +76,44 @@
                                 <label for="clinical_rotation_id" class="block text-sm font-semibold text-gray-700 mb-2" style="color: #374151 !important;">
                                     Clinical Rotation <span class="text-red-500" style="color: #ef4444 !important;">*</span>
                                 </label>
+                                
+                                @if($rotations->isEmpty())
+                                    <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-4">
+                                        <div class="flex items-center">
+                                            <svg class="w-5 h-5 text-yellow-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                                            </svg>
+                                            <div>
+                                                <p class="text-sm font-medium text-yellow-800">No Clinical Rotations Available</p>
+                                                <p class="text-xs text-yellow-700 mt-1">
+                                                    No clinical rotations have been created yet. Please contact your administrator to create clinical rotations.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+                                
                                 <select id="clinical_rotation_id" name="clinical_rotation_id" required
                                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200">
                                     <option value="">Select Clinical Rotation</option>
-                                    @foreach($rotations as $rotation)
+                                    @forelse($rotations as $rotation)
                                         <option value="{{ $rotation->id }}" {{ old('clinical_rotation_id') == $rotation->id ? 'selected' : '' }}>
-                                            {{ $rotation->rotation_title }}
+                                            {{ str_replace('Rotasi ', '', $rotation->rotation_title) }}
                                         </option>
-                                    @endforeach
+                                    @empty
+                                        <option value="" disabled>No clinical rotations available</option>
+                                    @endforelse
                                 </select>
                                 <x-input-error :messages="$errors->get('clinical_rotation_id')" class="mt-2" />
+                                
+                                @if($rotations->isNotEmpty())
+                                    <p class="text-xs text-gray-500 mt-2">
+                                        <svg class="w-4 h-4 inline mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+                                        </svg>
+                                        {{ $rotations->count() }} clinical rotation(s) available
+                                    </p>
+                                @endif
                             </div>
                         </div>
 

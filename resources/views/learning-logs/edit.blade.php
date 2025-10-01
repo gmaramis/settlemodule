@@ -70,7 +70,7 @@
                                     <option value="">Select Clinical Rotation</option>
                                     @foreach($rotations as $rotation)
                                         <option value="{{ $rotation->id }}" {{ old('clinical_rotation_id', $learningLog->clinical_rotation_id) == $rotation->id ? 'selected' : '' }}>
-                                            {{ $rotation->rotation_title }}
+                                            {{ str_replace('Rotasi ', '', $rotation->rotation_title) }}
                                         </option>
                                     @endforeach
                                 </select>

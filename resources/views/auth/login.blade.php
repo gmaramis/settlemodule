@@ -33,7 +33,7 @@
                 <div class="lg:hidden text-center mb-8">
                     <img src="{{ asset('images/logos/logo_settle.png') }}" 
                          alt="Settle Medical" 
-                         class="h-32 w-32 mx-auto object-contain mb-4">
+                         class="mx-auto object-contain mb-4" style="height: 180px; width: 180px;">
                     <h1 class="text-2xl font-bold text-gray-900">SETTLE</h1>
                 </div>
 

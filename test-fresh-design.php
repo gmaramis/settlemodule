@@ -205,3 +205,5 @@ echo "🎯 Branding SETTLE yang konsisten dan menarik\n";
 echo "📱 Desain responsive untuk semua device\n";
 
 
+
+

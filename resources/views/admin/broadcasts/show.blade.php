@@ -131,11 +131,31 @@
                                         </dd>
                                     </div>
                                     @if(isset($broadcast->target_criteria['target_type']) && $broadcast->target_criteria['target_type'] === 'specific' && isset($broadcast->target_criteria['selected_students']))
-                                        <div>
+                                        <div class="md:col-span-2">
                                             <dt class="text-sm font-medium text-gray-500">Mahasiswa Terpilih</dt>
                                             <dd class="mt-1 text-sm text-gray-900">
                                                 @if(count($broadcast->target_criteria['selected_students']) > 0)
-                                                    {{ count($broadcast->target_criteria['selected_students']) }} mahasiswa
+                                                    <div class="space-y-2">
+                                                        <p class="font-medium">{{ count($broadcast->target_criteria['selected_students']) }} mahasiswa terpilih:</p>
+                                                        <ul class="space-y-1">
+                                                            @foreach($broadcast->target_criteria['selected_students'] as $student)
+                                                                <li class="flex items-center justify-between bg-gray-100 rounded-lg p-3">
+                                                                    <div>
+                                                                        <div class="font-medium text-gray-900">{{ $student['name'] }}</div>
+                                                                        <div class="text-sm text-gray-500">
+                                                                            {{ $student['program'] }}
+                                                                            @if($student['institution'])
+                                                                                • {{ $student['institution'] }}
+                                                                            @endif
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="text-sm text-gray-500">
+                                                                        {{ $student['phone'] }}
+                                                                    </div>
+                                                                </li>
+                                                            @endforeach
+                                                        </ul>
+                                                    </div>
                                                 @else
                                                     <span class="text-red-600">Tidak ada mahasiswa dipilih</span>
                                                 @endif

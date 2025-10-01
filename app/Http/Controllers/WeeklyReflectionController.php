@@ -6,6 +6,7 @@ use App\Models\WeeklyReflection;
 use App\Models\ClinicalRotation;
 use App\Models\User;
 use App\Models\Admin;
+use App\Models\Incident;
 use App\Notifications\WeeklyReflectionNotification;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -64,9 +65,9 @@ class WeeklyReflectionController extends Controller
     public function create(): View
     {
         $user = Auth::user();
-        $rotations = ClinicalRotation::where('user_id', $user->id)
-            ->whereIn('status', ['active', 'completed'])
-            ->get();
+        
+        // Get clinical rotations from database - use existing rotations
+        $rotations = ClinicalRotation::all();
 
         // Get current week dates
         $weekStart = Carbon::now()->startOfWeek();
@@ -123,9 +124,8 @@ class WeeklyReflectionController extends Controller
         $this->authorize('update', $weeklyReflection);
         
         $user = Auth::user();
-        $rotations = ClinicalRotation::where('user_id', $user->id)
-            ->whereIn('status', ['active', 'completed'])
-            ->get();
+        // Get clinical rotations from database - use existing rotations
+        $rotations = ClinicalRotation::all();
         
         return view('weekly-reflections.edit', compact('weeklyReflection', 'rotations'));
     }

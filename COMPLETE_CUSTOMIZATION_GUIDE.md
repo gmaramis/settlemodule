@@ -356,3 +356,5 @@ py-12 px-4 sm:px-6 lg:px-8
 **Tidak ada lagi branding Laravel yang terlihat. Aplikasi sepenuhnya menggunakan branding Settle Medical dengan desain yang modern dan profesional!** 🚀✨
 
 
+
+

@@ -275,3 +275,5 @@ echo "📱 Spacing yang baik dan tidak dempet dengan border\n";
 echo "🔧 Ready untuk production!\n";
 
 
+
+

@@ -81,7 +81,7 @@
                             <h4 class="text-lg font-semibold text-gray-900 mb-2" style="color: #111827 !important;">Clinical Rotation</h4>
                             <div class="flex items-center space-x-2">
                                 <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
-                                    {{ $weeklyReflection->clinicalRotation->rotation_title }}
+                                    {{ str_replace('Rotasi ', '', $weeklyReflection->clinicalRotation->rotation_title) }}
                                 </span>
                             </div>
                         </div>

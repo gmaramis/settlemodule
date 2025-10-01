@@ -104,7 +104,7 @@
                             <option value="">All Rotations</option>
                             @foreach(\App\Models\ClinicalRotation::distinct()->pluck('rotation_title') as $rotation)
                                 <option value="{{ $rotation }}" {{ request('clinical_rotation') == $rotation ? 'selected' : '' }}>
-                                    {{ $rotation }}
+                                    {{ str_replace('Rotasi ', '', $rotation) }}
                                 </option>
                             @endforeach
                         </select>
@@ -169,7 +169,7 @@
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             @if($reflection->clinicalRotation)
                                                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                                                    {{ $reflection->clinicalRotation->rotation_title }}
+                                                    {{ str_replace('Rotasi ', '', $reflection->clinicalRotation->rotation_title) }}
                                                 </span>
                                             @else
                                                 <span class="text-sm text-gray-400">-</span>
